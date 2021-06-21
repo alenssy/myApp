@@ -5,6 +5,7 @@ import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
+import './App.css';
 
 /* Basic CSS for apps built with Ionic */
 import '@ionic/react/css/normalize.css';
@@ -23,7 +24,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 const App: React.FC = () => (
-  <IonApp>
+  <IonApp className="app">
     <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path="/home">

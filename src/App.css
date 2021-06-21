@@ -1,0 +1,128 @@
+.app{
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(29, 32, 31, 1);
+}
+
+.name{
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.duration{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.duration__text{
+    color: rgba(91, 91, 91, 1);
+    text-align: center;
+}
+
+.duration__time{
+    display: block;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.heading{
+    color: rgba(91, 91, 91, 1);
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 0;
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.date-time__block{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.active{
+    border: 1px solid #33BDE4;
+    background-color: rgba(240, 251, 255, 1);
+}
+
+.aux-input{
+    color:rgba(29, 32, 31, 1)!important;
+    font-size: 28px;
+}
+
+.scroll{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* .scroll * >{
+    margin: 0 5px;
+} */
+
+/* .card__datetime{
+    padding: 16px 8px;
+} */
+
+.card__datetime--content, .card__datetime{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* padding: 8px 16px; */
+}
+
+.card__datetime{
+    box-sizing: border-box;
+    width: 86px;
+    /* height: 92px */
+}
+
+/* .card__datetime:first-of-type{
+    margin-left: 0
+} */
+
+.datetime__text{
+    padding: 0;
+}
+
+.submit__datetime{
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.submit__datetime--block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.submit__datetime--block:first-of-type{
+    border-right: 1px solid rgba(229, 229, 229, 1);
+}
+
+.input-wrapper{
+    flex-direction: column!important;
+}
+
+.datetime__label{
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(91, 91, 91, 1);
+}
+
+.btn__submit{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 20px;
+}
