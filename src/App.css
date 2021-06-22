@@ -62,31 +62,17 @@
     flex-wrap: wrap;
 }
 
-/* .scroll * >{
-    margin: 0 5px;
-} */
-
-/* .card__datetime{
-    padding: 16px 8px;
-} */
-
 .card__datetime--content, .card__datetime{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* padding: 8px 16px; */
 }
 
 .card__datetime{
     box-sizing: border-box;
     width: 86px;
-    /* height: 92px */
 }
-
-/* .card__datetime:first-of-type{
-    margin-left: 0
-} */
 
 .datetime__text{
     padding: 0;
