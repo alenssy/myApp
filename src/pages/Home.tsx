@@ -5,8 +5,10 @@ import CardTime from '../components/CardTime';
 import CardSubmit from '../components/CardSubmit';
 import IData from '../IData';
 import React, { useState, useEffect } from 'react';
+import firebase from 'firebase';
 import { db } from '../firebase';
 import './Home.css';
+import { render } from '@testing-library/react';
 
 
 const Home: React.FC = () => {
@@ -14,40 +16,44 @@ const Home: React.FC = () => {
 //there are problems with the hook useEffect
 //then doesn`t work
 
-// const [data, setData] = useState<IData[]>();
+const [data, setData] = useState<IData[]>();
 
-// useEffect(() => {
-//     db.collection("myApp")
-//       .get()
-//       .then((querySnapshot) => {
-//         const data = querySnapshot.docs.map((doc) => {
-//               return JSON.parse(doc.data().json);
-//           });
-//           setData(data);
-//           console.log(data);
-//       })
-//       .catch((error) => {
-//           console.log("Error getting documents: ", error);
-//       });
-      
-      
-//   }, []);
+useEffect(() => {
+    db.collection("myApp")
+      .get()
+      .then((querySnapshot) => {
+        let data: IData[] = [];
+        data = querySnapshot.docs.map((doc) => {
+              // console.log(doc.data());
+              return JSON.parse(doc.data().json);
+          });
+          console.log(data);
+          setData(data);
+      })
+      .catch((error) => {
+          console.log("Error getting documents: ", error);
+      });
+  }, []);
 
-  // console.log(data);
+
+//         id: doc.id,
+//         ...doc.data()
+
+console.log(data);
 
 //data 
-  let data: IData[] = [ 
-    {id: 1, name: 'Сергей Куликов', date: '2021-06-20T15:40:40.394Z', img: 'man', active: false}, 
-    {id: 2, name: 'Сергей Куликов', date: '2021-06-21T19:00:40.394Z', img: 'man', active: false},
-    {id: 3, name: 'Елена Шимановская', date: '2021-06-22T15:30:40.394Z', img: 'woman', active: false},
-    {id: 4, name: 'Елена Шимановская', date: '2021-06-23T17:00:40.394Z', img: 'woman', active: false},
-    {id: 5, name: 'Елена Шимановская', date: '2021-06-24T18:30:40.394Z', img: 'woman', active: false},
-    {id: 6, name: 'Сергей Куликов', date: '2021-06-20T16:40:40.394Z', img: 'man', active: false}, 
-    {id: 7, name: 'Сергей Куликов', date: '2021-06-21T20:00:40.394Z', img: 'man', active: false},
-    {id: 8, name: 'Елена Шимановская', date: '2021-06-22T16:30:40.394Z', img: 'woman', active: false},
-    {id: 9, name: 'Елена Шимановская', date: '2021-06-23T18:00:40.394Z', img: 'woman', active: false},
-    {id: 10, name: 'Елена Шимановская', date: '2021-06-24T19:30:40.394Z', img: 'woman', active: false}
-  ];
+  // let data: IData[] = [ 
+  //   {id: 1, name: 'Сергей Куликов', date: '2021-06-20T15:40:40.394Z', img: 'man', active: false}, 
+  //   {id: 2, name: 'Сергей Куликов', date: '2021-06-21T19:00:40.394Z', img: 'man', active: false},
+  //   {id: 3, name: 'Елена Шимановская', date: '2021-06-22T15:30:40.394Z', img: 'woman', active: false},
+  //   {id: 4, name: 'Елена Шимановская', date: '2021-06-23T17:00:40.394Z', img: 'woman', active: false},
+  //   {id: 5, name: 'Елена Шимановская', date: '2021-06-24T18:30:40.394Z', img: 'woman', active: false},
+  //   {id: 6, name: 'Сергей Куликов', date: '2021-06-20T16:40:40.394Z', img: 'man', active: false}, 
+  //   {id: 7, name: 'Сергей Куликов', date: '2021-06-21T20:00:40.394Z', img: 'man', active: false},
+  //   {id: 8, name: 'Елена Шимановская', date: '2021-06-22T16:30:40.394Z', img: 'woman', active: false},
+  //   {id: 9, name: 'Елена Шимановская', date: '2021-06-23T18:00:40.394Z', img: 'woman', active: false},
+  //   {id: 10, name: 'Елена Шимановская', date: '2021-06-24T19:30:40.394Z', img: 'woman', active: false}
+  // ];
 
   //using hook useState to set the selected data (psychologist, date, time)
   const [meetingActive, setMeetingActive] = useState<IData>({id: 1, name: 'Сергей Куликов', date: '2021-06-20T15:40:40.394Z', img: 'man', active: false});
@@ -59,19 +65,26 @@ const Home: React.FC = () => {
 
   //filtering duplicates name to render card of psychologist
   let filterData = () => {
-    let res = data.filter((thing, index, self) =>
+    let names: IData[] = [];
+
+    data?.map(meeting => {
+      names.push(meeting);
+    })
+
+    names = names.filter((thing, index, self) => 
       index === self.findIndex((t) => (
         t.name === thing.name
       ))
     )
-    return res;
+
+    return names;
   }
 
   //filtering duplicates date to render card of date
   let filterDate = () => {
-    let meetings: Array<IData> = [];
+    let meetings: IData[] = [];
 
-    data.map(meeting => {
+    data?.map(meeting => {
       if(meeting.name === meetingActive.name){
         meetings.push(meeting);
       }})
@@ -104,7 +117,7 @@ const Home: React.FC = () => {
 
     let res = {};
 
-    data.forEach(meeting => {
+    data?.forEach(meeting => {
       if(meeting.name === meetingActive.name && meeting.date === timeActive){
         meeting.active = true;
         res = meeting;
@@ -122,7 +135,7 @@ const Home: React.FC = () => {
 
   //render screen
   return (
-    <IonPage>
+    <IonPage className="app">
       <IonHeader>
         <IonToolbar>
           <IonTitle>Make an appointment</IonTitle>
@@ -136,7 +149,7 @@ const Home: React.FC = () => {
         </IonHeader>
           {//rendering of psychologists' cards with data transfer and click response functions in props
             filterData()
-              .map(meeting => <Psychologist key={meeting.id} meeting={meeting} onChoose={choosePsychologist} meetingActive={meetingActive}/>)
+              .map((meeting: IData) => <Psychologist key={meeting.id} meeting={meeting} onChoose={choosePsychologist} meetingActive={meetingActive}/>)
           }
         <IonItemDivider className="date-time__block">
           <IonLabel className="heading">Возможная дата</IonLabel>
@@ -152,7 +165,7 @@ const Home: React.FC = () => {
           <IonLabel className="heading">Свободное время</IonLabel>
           <IonList className="scroll">
             {//rendering of time cards with data transfer and click response functions in props
-              data.map(meeting => {
+              data?.map(meeting => {
                 if(getDate(meeting.date) === getDate(dateActive)){
                   return <CardTime key={meeting.id} meeting={meeting} onChoose={chooseTime} timeActive={timeActive}/>
                 }
