@@ -13,8 +13,6 @@ import { render } from '@testing-library/react';
 
 const Home: React.FC = () => {
 
-//there are problems with the hook useEffect
-//then doesn`t work
 
 const [data, setData] = useState<IData[]>();
 
