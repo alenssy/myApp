@@ -13,7 +13,6 @@ import { render } from '@testing-library/react';
 
 const Home: React.FC = () => {
 
-
 const [data, setData] = useState<IData[]>();
 
 useEffect(() => {
@@ -22,10 +21,17 @@ useEffect(() => {
       .then((querySnapshot) => {
         let data: IData[] = [];
         data = querySnapshot.docs.map((doc) => {
-              // console.log(doc.data());
-              return JSON.parse(doc.data().json);
+
+              return {
+                id: doc.id,
+                name: doc.data().name,
+                date: doc.data().date.toDate().toISOString(),
+                img: doc.data().img,
+                active: doc.data().active
+              };
           });
           console.log(data);
+          
           setData(data);
       })
       .catch((error) => {
@@ -33,28 +39,10 @@ useEffect(() => {
       });
   }, []);
 
-
-//         id: doc.id,
-//         ...doc.data()
-
 console.log(data);
 
-//data 
-  // let data: IData[] = [ 
-  //   {id: 1, name: 'Сергей Куликов', date: '2021-06-20T15:40:40.394Z', img: 'man', active: false}, 
-  //   {id: 2, name: 'Сергей Куликов', date: '2021-06-21T19:00:40.394Z', img: 'man', active: false},
-  //   {id: 3, name: 'Елена Шимановская', date: '2021-06-22T15:30:40.394Z', img: 'woman', active: false},
-  //   {id: 4, name: 'Елена Шимановская', date: '2021-06-23T17:00:40.394Z', img: 'woman', active: false},
-  //   {id: 5, name: 'Елена Шимановская', date: '2021-06-24T18:30:40.394Z', img: 'woman', active: false},
-  //   {id: 6, name: 'Сергей Куликов', date: '2021-06-20T16:40:40.394Z', img: 'man', active: false}, 
-  //   {id: 7, name: 'Сергей Куликов', date: '2021-06-21T20:00:40.394Z', img: 'man', active: false},
-  //   {id: 8, name: 'Елена Шимановская', date: '2021-06-22T16:30:40.394Z', img: 'woman', active: false},
-  //   {id: 9, name: 'Елена Шимановская', date: '2021-06-23T18:00:40.394Z', img: 'woman', active: false},
-  //   {id: 10, name: 'Елена Шимановская', date: '2021-06-24T19:30:40.394Z', img: 'woman', active: false}
-  // ];
-
   //using hook useState to set the selected data (psychologist, date, time)
-  const [meetingActive, setMeetingActive] = useState<IData>({id: 1, name: 'Сергей Куликов', date: '2021-06-20T15:40:40.394Z', img: 'man', active: false});
+  const [meetingActive, setMeetingActive] = useState<IData>({id: '1', name: 'Сергей Куликов', date: '2021-06-20T15:40:40.394Z', img: 'man', active: false});
   const [dateActive, setDateActive] = useState<string>('2021-06-20T15:40:40.394Z')
   const [timeActive, setTimeActive] = useState<string>('2021-06-20T15:40:40.394Z')
 
